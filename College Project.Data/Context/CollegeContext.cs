@@ -37,16 +37,12 @@ namespace College_Project.Data.Context
         {
             modelBuilder.Entity<Branch>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.Property(e => e.BranchName)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreatedDt).HasColumnType("datetime");
-
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.IsActive)
                     .IsRequired()
@@ -57,8 +53,6 @@ namespace College_Project.Data.Context
 
             modelBuilder.Entity<UserStudent>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("User_Student");
 
                 entity.Property(e => e.CreatedDt).HasColumnType("datetime");
@@ -72,8 +66,6 @@ namespace College_Project.Data.Context
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.IsActive)
                     .IsRequired()
@@ -95,15 +87,17 @@ namespace College_Project.Data.Context
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Branch)
+                    .WithMany(p => p.UserStudent)
+                    .HasForeignKey(d => d.BranchId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_User_Student_Branch");
             });
 
             modelBuilder.Entity<UserType>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.Property(e => e.CreatedDt).HasColumnType("datetime");
-
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.IsActive)
                     .IsRequired()

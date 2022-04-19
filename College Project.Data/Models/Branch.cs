@@ -9,6 +9,11 @@ namespace College_Project.Data.Models
 {
     public partial class Branch
     {
+        public Branch()
+        {
+            UserStudent = new HashSet<UserStudent>();
+        }
+
         public int Id { get; set; }
         public string BranchName { get; set; }
         public int? CreatedById { get; set; }
@@ -16,5 +21,7 @@ namespace College_Project.Data.Models
         public DateTime? CreatedDt { get; set; }
         public DateTime? ModifiedDt { get; set; }
         public bool? IsActive { get; set; }
+
+        public virtual ICollection<UserStudent> UserStudent { get; set; }
     }
 }

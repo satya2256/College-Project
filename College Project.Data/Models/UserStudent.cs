@@ -21,5 +21,7 @@ namespace College_Project.Data.Models
         public DateTime? CreatedDt { get; set; }
         public DateTime? ModifiedDt { get; set; }
         public bool? IsActive { get; set; }
+
+        public virtual Branch Branch { get; set; }
     }
 }
