@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College Project", "College Project\College Project.csproj", "{8155C9DE-F622-4838-9BE0-8CC1BAACEFD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Web.Ui", "College Project\Project.Web.Ui.csproj", "{8155C9DE-F622-4838-9BE0-8CC1BAACEFD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College Project.Data", "College Project.Data\College Project.Data.csproj", "{28EED979-7A39-4341-B2AE-7FA90A471A3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College_Project.Data", "College Project.Data\College_Project.Data.csproj", "{28EED979-7A39-4341-B2AE-7FA90A471A3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College Project.BusinessObjects", "College Project.BusinessObjects\College Project.BusinessObjects.csproj", "{38CE443F-DEB2-4DD4-A394-6A0FE2B31843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College_Project.BusinessObjects", "College Project.BusinessObjects\College_Project.BusinessObjects.csproj", "{38CE443F-DEB2-4DD4-A394-6A0FE2B31843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College Project.Entities", "College Project.Entities\College Project.Entities.csproj", "{42814044-3FC9-4F77-BB8E-2E6C4A62F47B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College_Project.Entities", "College Project.Entities\College_Project.Entities.csproj", "{42814044-3FC9-4F77-BB8E-2E6C4A62F47B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College Project.Shared", "College Project.Shared\College Project.Shared.csproj", "{DEC67B82-7CA3-41CA-845C-464A254B6F46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College_Project.Shared", "College Project.Shared\College_Project.Shared.csproj", "{DEC67B82-7CA3-41CA-845C-464A254B6F46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College Project.Infra", "College Project.Infra\College Project.Infra.csproj", "{F0F53C11-3280-4F68-AB79-ADE09AED1D04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DEC67B82-7CA3-41CA-845C-464A254B6F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC67B82-7CA3-41CA-845C-464A254B6F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC67B82-7CA3-41CA-845C-464A254B6F46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0F53C11-3280-4F68-AB79-ADE09AED1D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0F53C11-3280-4F68-AB79-ADE09AED1D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0F53C11-3280-4F68-AB79-ADE09AED1D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0F53C11-3280-4F68-AB79-ADE09AED1D04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

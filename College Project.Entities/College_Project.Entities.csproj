@@ -5,4 +5,8 @@
     <RootNamespace>College_Project.Entities</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\College Project.Infra\College Project.Infra.csproj" />
+  </ItemGroup>
+
 </Project>
