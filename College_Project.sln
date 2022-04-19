@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College_Project.Entities", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College_Project.Shared", "College Project.Shared\College_Project.Shared.csproj", "{DEC67B82-7CA3-41CA-845C-464A254B6F46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College Project.Infra", "College Project.Infra\College Project.Infra.csproj", "{F0F53C11-3280-4F68-AB79-ADE09AED1D04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College_Project.Infra", "College Project.Infra\College_Project.Infra.csproj", "{F0F53C11-3280-4F68-AB79-ADE09AED1D04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
