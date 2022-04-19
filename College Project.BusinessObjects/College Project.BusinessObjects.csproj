@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>College_Project.BusinessObjects</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\College Project.Data\College Project.Data.csproj" />
+    <ProjectReference Include="..\College Project.Entities\College Project.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
