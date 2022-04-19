@@ -5,4 +5,8 @@
     <RootNamespace>College_Project</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\College Project.BusinessObjects\College Project.BusinessObjects.csproj" />
+  </ItemGroup>
+
 </Project>
