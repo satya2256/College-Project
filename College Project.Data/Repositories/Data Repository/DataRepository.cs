@@ -7,12 +7,12 @@ using System.Text;
 
 namespace College_Project.Data.Repositories.Data_Repository
 {
-    public class DataRepository:IDataRepository,IDisposable
+    public class DataRepository:IDataRepository
     {
-        public void Dispose()
-        {
-            this.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    this.Dispose();
+        //}
 
         public List<UserType> GetUserTypes()
         {
