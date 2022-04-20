@@ -13,12 +13,12 @@ namespace College_Project.BusinessObjects.Providers.Data
         {
             try
             {
-                using (DataRepository dataRepository = new DataRepository())
-                {
+                    DataRepository dataRepository = new DataRepository();
+                
                     var userTypesModel = dataRepository.GetUserTypes();
                     var userTypes = DataMapper.GetUserTypes(userTypesModel);
                     return userTypes;
-                }
+                
             }
             catch (Exception ex)
             {
