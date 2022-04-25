@@ -14,16 +14,20 @@ namespace College_Project.BusinessObjects.Providers.Authentication
             AuthRepository authRepository = new AuthRepository();
             try
             {
-                var inUserModel = AuthMapper.RegisterStudentModel(userStudent);
-                if (inUserModel != null)
+                if(userStudent.Password == userStudent.ConfirmPassword)
                 {
-                    var outUserModel = authRepository.RegisterStudent(inUserModel);
-                    if (outUserModel != null)
+                    var inUserModel = AuthMapper.RegisterStudentModel(userStudent);
+                    if (inUserModel != null)
                     {
-                        var registeredStudent = AuthMapper.RegisterStudent(outUserModel);
-                        return registeredStudent;
+                        var outUserModel = authRepository.RegisterStudent(inUserModel);
+                        if (outUserModel != null)
+                        {
+                            var registeredStudent = AuthMapper.RegisterStudent(outUserModel);
+                            return registeredStudent;
+                        }
                     }
                 }
+                
               
                 else
                 {
