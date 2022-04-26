@@ -1,16 +1,20 @@
 ﻿using College_Project.BusinessObjects.Mappers;
 using College_Project.Data.Repositories.Authentication;
 using College_Project.Entities;
+using College_Project.Infra.Base;
+using College_Project.Infra.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace College_Project.BusinessObjects.Providers.Authentication
 {
-    public class AuthProvider:IAuthprovider
+    public class AuthProvider:ProviderBase,IAuthprovider
     {
-        public UserStudent RegisterStudent(UserStudent userStudent)
+        public async Task<ClientResponse<UserStudent>> RegisterStudent(UserStudent userStudent)
         {
+            var clientResponse = new ClientResponse<UserStudent>();
             AuthRepository authRepository = new AuthRepository();
             try
             {
@@ -19,11 +23,16 @@ namespace College_Project.BusinessObjects.Providers.Authentication
                     var inUserModel = AuthMapper.RegisterStudentModel(userStudent);
                     if (inUserModel != null)
                     {
-                        var outUserModel = authRepository.RegisterStudent(inUserModel);
+                        var outUserModel = await authRepository.RegisterStudent(inUserModel);
                         if (outUserModel != null)
                         {
-                            var registeredStudent = AuthMapper.RegisterStudent(outUserModel);
-                            return registeredStudent;
+                           clientResponse.Result = AuthMapper.RegisterStudent(outUserModel);
+                           
+                        }
+                        if (clientResponse.Result != null)
+                        {
+                            //Success 
+                            clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
                         }
                     }
                 }
