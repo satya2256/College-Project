@@ -2,11 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace College_Project.Data.Repositories.Authentication
 {
     public interface IAuthRepository
     {
-        public UserStudent RegisterStudent(UserStudent userStudent);
+        UserStudent RegisterStudent(UserStudent userStudent);
+        UserStudent SearchStudent(string email);
+        UserStudent GetStudentDetails(string rollNumber);
+        UserStudent GetStudentDetails(string rollNumber, string password);
+
     }
 }

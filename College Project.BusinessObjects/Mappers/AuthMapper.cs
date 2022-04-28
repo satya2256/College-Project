@@ -15,12 +15,12 @@ namespace College_Project.BusinessObjects.Mappers
                
                     Models.UserStudent _userStudent = new Models.UserStudent();
 
-                    _userStudent.FirstName = userStudent.FirstName;
-                    _userStudent.LastName = userStudent.LastName;
-                    _userStudent.RollNumber = userStudent.RollNumber;
-                    _userStudent.Email = userStudent.Email;
-                    _userStudent.BranchId = userStudent.Branch.Id;
-                    _userStudent.Password = userStudent.Password;
+                    _userStudent.FirstName = userStudent?.FirstName;
+                    _userStudent.LastName = userStudent?.LastName;
+                    _userStudent.RollNumber = userStudent?.RollNumber;
+                    _userStudent.Email = userStudent?.Email;
+                    _userStudent.BranchId = Convert.ToInt32(userStudent?.Branch.Id);
+                    _userStudent.Password = userStudent?.Password;
 
                     return _userStudent;
             }
@@ -34,12 +34,13 @@ namespace College_Project.BusinessObjects.Mappers
                 UserStudent _userStudent = new UserStudent();
                 
 
-                _userStudent.FirstName = userStudent.FirstName;
-                _userStudent.LastName = userStudent.LastName;
-                _userStudent.RollNumber = userStudent.RollNumber;
-                _userStudent.Email = userStudent.Email;
-                _userStudent.Branch.Id = userStudent.BranchId;
-                _userStudent.Password = userStudent.Password;
+                _userStudent.FirstName = userStudent?.FirstName;
+                _userStudent.LastName = userStudent?.LastName;
+                _userStudent.RollNumber = userStudent?.RollNumber;
+                _userStudent.Email = userStudent?.Email;
+                _userStudent.Branch.Id = Convert.ToInt32(userStudent?.BranchId);
+                _userStudent.Branch.BranchName = userStudent.Branch?.BranchName;
+                _userStudent.Password = userStudent?.Password;
 
                 return _userStudent;
 

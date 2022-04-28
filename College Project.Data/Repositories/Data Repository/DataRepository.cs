@@ -1,5 +1,6 @@
 ﻿using College_Project.Data.Context;
 using College_Project.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,8 @@ namespace College_Project.Data.Repositories.Data_Repository
             
             using (CollegeContext collegeContext = new CollegeContext())
             {
-                return collegeContext.UserType.Where(x => x.IsActive == true).ToList();
+                return collegeContext.UserType.Where(x => x.IsActive == true)
+                    .Include(ut => ut.UserTypeName).ToList();
             }
            
             
