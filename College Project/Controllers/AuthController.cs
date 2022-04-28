@@ -15,13 +15,30 @@ namespace College_Project.Controllers
     public class AuthController : ControllerBase
     {
         [HttpPost("RegisterStudent")]
-        public async Task<ClientResponse<UserStudent>> RegisterStudent([FromBody]UserStudent userStudent)
+        public ClientResponse<UserStudent> RegisterStudent([FromBody] UserStudent userStudent)
         {
             AuthProvider authProvider = new AuthProvider();
             Serilog.Log.Information("Get '" + this.GetType() + "' Input Params -> Event:{Event}, EventStatus:{EventStatus}", "RegisterStudent", "ControllerStarted");
-            var reg = await authProvider.RegisterStudent(userStudent);
+            var reg = authProvider.RegisterStudent(userStudent);
             return reg;
-            
+
+        }
+        [HttpGet("GetStudentDetails")]
+        public ClientResponse<UserStudent> GetStudentDetails(string rollNumber)
+        {
+            AuthProvider authProvider = new AuthProvider();
+            var student = authProvider.GetStudentDetails(rollNumber);
+            return student;
+
+        }
+        [HttpGet("StudentLogin")]
+        public ClientResponse<UserStudent> StudentLogin(string rollNumber, string password)
+        {
+            AuthProvider authProvider = new AuthProvider();
+            var loggedinStudent = authProvider.GetStudentDetails(rollNumber,password);
+            return loggedinStudent;
+
         }
     }
+        
 }

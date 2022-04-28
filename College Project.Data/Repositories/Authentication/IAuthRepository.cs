@@ -8,8 +8,10 @@ namespace College_Project.Data.Repositories.Authentication
 {
     public interface IAuthRepository
     {
-        Task<UserStudent> RegisterStudent(UserStudent userStudent);
-        Task<UserStudent> SearchStudent(string email);
+        UserStudent RegisterStudent(UserStudent userStudent);
+        UserStudent SearchStudent(string email);
+        UserStudent GetStudentDetails(string rollNumber);
+        UserStudent GetStudentDetails(string rollNumber, string password);
 
     }
 }

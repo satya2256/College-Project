@@ -9,6 +9,8 @@ namespace College_Project.BusinessObjects.Providers.Authentication
 {
     public interface IAuthprovider
     {
-        Task<ClientResponse<UserStudent>> RegisterStudent(UserStudent userStudent);
+        ClientResponse<UserStudent> RegisterStudent(UserStudent userStudent);
+        ClientResponse<UserStudent> GetStudentDetails(string rollNumber);
+        ClientResponse<UserStudent> GetStudentDetails(string rollNumber, string password);
     }
 }

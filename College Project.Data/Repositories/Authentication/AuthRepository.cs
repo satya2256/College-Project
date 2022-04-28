@@ -13,7 +13,7 @@ namespace College_Project.Data.Repositories.Authentication
     {
         CollegeContext collegeContext = new CollegeContext();
 
-        public async Task<UserStudent> RegisterStudent(UserStudent userStudent)
+        public  UserStudent RegisterStudent(UserStudent userStudent)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace College_Project.Data.Repositories.Authentication
                 int count = collegeContext.SaveChanges();
                 if (count > 0)
                 {
-                    return await SearchStudent(userStudent.Email);
+                    return SearchStudent(userStudent.Email);
                 }
                 return null;
                 
@@ -34,11 +34,12 @@ namespace College_Project.Data.Repositories.Authentication
             
             
         }
-        public async Task<UserStudent> SearchStudent(string email)
+        public  UserStudent SearchStudent(string email)
         {
             try
             {
-                var search = await collegeContext.UserStudent.FirstOrDefaultAsync(x => x.Email == email);
+                var search = collegeContext.UserStudent.Where(x => x.Email == email)
+                    .Include(br=>br.Branch).FirstOrDefault();
                 return search;
 
             }
@@ -48,6 +49,38 @@ namespace College_Project.Data.Repositories.Authentication
                 throw ex;
             }
             
+        }
+        public UserStudent GetStudentDetails(string rollNumber)
+        {
+            try
+            {
+                var search = collegeContext.UserStudent.Where(x => x.RollNumber.ToLower() == rollNumber.ToLower())
+                    .Include(br => br.Branch).FirstOrDefault();
+                return search;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public UserStudent GetStudentDetails(string rollNumber,string password)
+        {
+            try
+            {
+                var search = collegeContext.UserStudent.Where(x => x.RollNumber.ToLower() == rollNumber.ToLower() && x.Password == password)
+                    .Include(br => br.Branch).FirstOrDefault();
+                return search;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
 
