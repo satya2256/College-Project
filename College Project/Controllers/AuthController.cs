@@ -39,6 +39,14 @@ namespace College_Project.Controllers
             return loggedinStudent;
 
         }
+        [HttpDelete("DeleteStudent")]
+        public ClientResponse<bool> DeleteStudent(string rollNumber,string password)
+        {
+            AuthProvider authProvider = new AuthProvider();
+            var deletedStudent = authProvider.DeleteStudent(rollNumber, password);
+            return deletedStudent;
+
+        }
     }
         
 }

@@ -10,43 +10,53 @@ using System.Threading.Tasks;
 
 namespace College_Project.BusinessObjects.Providers.Authentication
 {
-    public class AuthProvider:ProviderBase,IAuthprovider
+    public class AuthProvider : ProviderBase, IAuthprovider
     {
-        public  ClientResponse<UserStudent> RegisterStudent(UserStudent userStudent)
+        public ClientResponse<UserStudent> RegisterStudent(UserStudent userStudent)
         {
             var clientResponse = new ClientResponse<UserStudent>();
             AuthRepository authRepository = new AuthRepository();
             try
             {
                 //Register Student
-                if( userStudent.Id == 0 && (userStudent.Password == userStudent.ConfirmPassword))
+                var searchUser = authRepository.SearchStudent(userStudent.Email);
+                if(searchUser == null)
                 {
-                    var inUserModel = AuthMapper.RegisterStudentModel(userStudent);
-                    if (inUserModel != null)
+                    if (userStudent.Id == 0 && (userStudent.Password == userStudent.ConfirmPassword))
                     {
-                        var outUserModel = authRepository.RegisterStudent(inUserModel);
-                        if (outUserModel != null)
+                        var inUserModel = AuthMapper.RegisterStudentModel(userStudent);
+                        if (inUserModel != null)
                         {
-                           clientResponse.Result = AuthMapper.RegisterStudent(outUserModel);
-                           
+                            var outUserModel = authRepository.RegisterStudent(inUserModel);
+                            if (outUserModel != null)
+                            {
+                                clientResponse.Result = AuthMapper.RegisterStudent(outUserModel);
+
+                            }
+                            if (clientResponse.Result != null)
+                            {
+                                //Success 
+                                clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                            }
+                            else
+                            {
+                                clientResponse.Message = "Registering failed...try again!!!!";
+                            }
                         }
-                        if (clientResponse.Result != null)
-                        {
-                            //Success 
-                            clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
-                        }
-                        else
-                        {
-                            clientResponse.Message = "Registering failed...try again!!!!";
-                        }
+                    }
+                    else
+                    {
+                        clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                        clientResponse.Message = "Password and confirm Password should be same";
+
                     }
                 }
                 else
                 {
                     clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
-                    clientResponse.Message = "Password and confirm Password should be same";
-                    
+                    clientResponse.Message = "User already exists...Please try with different email";
                 }
+                
 
             }
             catch (Exception ex)
@@ -54,7 +64,7 @@ namespace College_Project.BusinessObjects.Providers.Authentication
 
                 throw ex;
             }
-            return clientResponse;           
+            return clientResponse;
         }
         public ClientResponse<UserStudent> GetStudentDetails(string rollNumber)
         {
@@ -75,7 +85,7 @@ namespace College_Project.BusinessObjects.Providers.Authentication
                     //Success 
                     clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
                 }
-               
+
             }
             else
             {
@@ -83,16 +93,16 @@ namespace College_Project.BusinessObjects.Providers.Authentication
                 clientResponse.Message = "Student Details not found for given roll number";
             }
             return clientResponse;
-            
+
 
 
         }
-        public ClientResponse<UserStudent> GetStudentDetails(string rollNumber,string password)
+        public ClientResponse<UserStudent> GetStudentDetails(string rollNumber, string password)
         {
             var clientResponse = new ClientResponse<UserStudent>();
             AuthRepository authRepository = new AuthRepository();
 
-            var inUserModel = authRepository.GetStudentDetails(rollNumber,password);
+            var inUserModel = authRepository.GetStudentDetails(rollNumber, password);
             if (inUserModel != null)
             {
                 var outUserModel = AuthMapper.RegisterStudent(inUserModel);
@@ -118,7 +128,40 @@ namespace College_Project.BusinessObjects.Providers.Authentication
 
 
         }
+        public ClientResponse<bool> DeleteStudent(string rollNumber, string password)
+        {
+            var clientResponse = new ClientResponse<bool>();
+            AuthRepository authRepository = new AuthRepository();
+
+            var inUserModel = authRepository.GetStudentDetails(rollNumber,password);
+            if(inUserModel != null)
+            {
+                inUserModel.IsActive = false;
+                var outUserModel = authRepository.DeleteStudent(inUserModel);
+                if (outUserModel != null && outUserModel.IsActive == false)
+                {
+                    clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                    clientResponse.Result = true;
+                    clientResponse.Message = "Student Deleted Successfully..!";
+
+                }
+                else
+                {
+                    clientResponse.Message = "Student not Deleted try again..!";
+                }
+            }
+            else
+            {
+                clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                clientResponse.Result = true;
+                clientResponse.Message = "Student not found...!";
+            }
+           
+            
+            return clientResponse;
 
 
+        }
+    
     }
 }

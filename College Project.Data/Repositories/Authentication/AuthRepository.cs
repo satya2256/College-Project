@@ -38,7 +38,7 @@ namespace College_Project.Data.Repositories.Authentication
         {
             try
             {
-                var search = collegeContext.UserStudent.Where(x => x.Email == email)
+                var search = collegeContext.UserStudent.Where(x => x.Email == email && x.IsActive == true)
                     .Include(br=>br.Branch).FirstOrDefault();
                 return search;
 
@@ -54,7 +54,7 @@ namespace College_Project.Data.Repositories.Authentication
         {
             try
             {
-                var search = collegeContext.UserStudent.Where(x => x.RollNumber.ToLower() == rollNumber.ToLower())
+                var search = collegeContext.UserStudent.Where(x => x.RollNumber.ToLower() == rollNumber.ToLower() && x.IsActive == true)
                     .Include(br => br.Branch).FirstOrDefault();
                 return search;
 
@@ -70,7 +70,7 @@ namespace College_Project.Data.Repositories.Authentication
         {
             try
             {
-                var search = collegeContext.UserStudent.Where(x => x.RollNumber.ToLower() == rollNumber.ToLower() && x.Password == password)
+                var search = collegeContext.UserStudent.Where(x => x.RollNumber.ToLower() == rollNumber.ToLower() && x.Password == password && x.IsActive == true)
                     .Include(br => br.Branch).FirstOrDefault();
                 return search;
 
@@ -80,6 +80,46 @@ namespace College_Project.Data.Repositories.Authentication
 
                 throw ex;
             }
+
+        }
+        public UserStudent GetDeletedStudentDetails(string rollNumber, string password)
+        {
+            try
+            {
+                var search = collegeContext.UserStudent.Where(x => x.RollNumber.ToLower() == rollNumber.ToLower() && x.Password == password && x.IsActive == false)
+                    .Include(br => br.Branch).FirstOrDefault();
+                return search;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public UserStudent DeleteStudent(UserStudent userStudent)
+        {
+            try
+            {
+
+                var update = collegeContext.UserStudent.Update(userStudent);
+                int count = collegeContext.SaveChanges();
+                if (count>0)
+                {
+                    return GetDeletedStudentDetails(userStudent.RollNumber,userStudent.Password);
+                    
+                }
+                   
+                
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return null;
 
         }
 
