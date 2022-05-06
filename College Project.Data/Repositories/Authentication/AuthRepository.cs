@@ -13,33 +13,33 @@ namespace College_Project.Data.Repositories.Authentication
     {
         CollegeContext collegeContext = new CollegeContext();
 
-        public  UserStudent RegisterStudent(UserStudent userStudent)
+        public UserStudent RegisterStudent(UserStudent userStudent)
         {
             try
             {
-                var register =  collegeContext.Add(userStudent);
+                var register = collegeContext.Add(userStudent);
                 int count = collegeContext.SaveChanges();
                 if (count > 0)
                 {
                     return SearchStudent(userStudent.Email);
                 }
                 return null;
-                
+
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
-            
-            
+
+
         }
-        public  UserStudent SearchStudent(string email)
+        public UserStudent SearchStudent(string email)
         {
             try
             {
                 var search = collegeContext.UserStudent.Where(x => x.Email == email && x.IsActive == true)
-                    .Include(br=>br.Branch).FirstOrDefault();
+                    .Include(br => br.Branch).FirstOrDefault();
                 return search;
 
             }
@@ -48,7 +48,7 @@ namespace College_Project.Data.Repositories.Authentication
 
                 throw ex;
             }
-            
+
         }
         public UserStudent GetStudentDetails(string rollNumber)
         {
@@ -66,7 +66,7 @@ namespace College_Project.Data.Repositories.Authentication
             }
 
         }
-        public UserStudent GetStudentDetails(string rollNumber,string password)
+        public UserStudent GetStudentDetails(string rollNumber, string password)
         {
             try
             {
@@ -105,13 +105,13 @@ namespace College_Project.Data.Repositories.Authentication
 
                 var update = collegeContext.UserStudent.Update(userStudent);
                 int count = collegeContext.SaveChanges();
-                if (count>0)
+                if (count > 0)
                 {
-                    return GetDeletedStudentDetails(userStudent.RollNumber,userStudent.Password);
-                    
+                    return GetDeletedStudentDetails(userStudent.RollNumber, userStudent.Password);
+
                 }
-                   
-                
+
+
 
             }
             catch (Exception ex)
@@ -121,6 +121,44 @@ namespace College_Project.Data.Repositories.Authentication
             }
             return null;
 
+        }
+        public UserProfessor RegisterProfessor(UserProfessor userProfessor)
+        {
+            try
+            {
+                CollegeContext collegeContext = new CollegeContext();
+                collegeContext.Add(userProfessor);
+                int count = collegeContext.SaveChanges();
+                if (count > 0)
+                {
+                    return SearchProfessor(userProfessor.Email);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return null;
+            
+        }
+        public UserProfessor SearchProfessor(string email)
+        {
+            try
+            {
+                CollegeContext collegeContext = new CollegeContext();
+                var search = collegeContext.UserProfessor.Where(x => x.Email == email && x.IsActive == true)
+                    .Include(br=>br.Branch).FirstOrDefault();
+                return search;
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+         
         }
 
 

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace College_Project.Data.Repositories.Data_Repository
 {
-    public class DataRepository:IDataRepository
+    public class DataRepository : IDataRepository
     {
         //public void Dispose()
         //{
@@ -17,13 +17,13 @@ namespace College_Project.Data.Repositories.Data_Repository
 
         public List<UserType> GetUserTypes()
         {
-            
+
             using (CollegeContext collegeContext = new CollegeContext())
             {
                 return collegeContext.UserType.Where(x => x.IsActive == true).ToList();
             }
-           
-            
+
+
         }
     }
 }

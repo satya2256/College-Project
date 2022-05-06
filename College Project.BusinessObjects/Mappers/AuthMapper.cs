@@ -40,12 +40,43 @@ namespace College_Project.BusinessObjects.Mappers
                 _userStudent.Email = userStudent?.Email;
                 _userStudent.Branch.Id = Convert.ToInt32(userStudent?.BranchId);
                 _userStudent.Branch.BranchName = userStudent.Branch?.BranchName;
-                _userStudent.Password = userStudent?.Password;
+                //_userStudent.Password = userStudent?.Password;
 
                 return _userStudent;
 
             }
             return null;
+        }
+        public static Models.UserProfessor RegisterProfessorModel(UserProfessor userProfessor)
+        {
+            Models.UserProfessor _userProfessor = new Models.UserProfessor();
+
+            _userProfessor.FirstName = userProfessor.FirstName;
+            _userProfessor.LastName = userProfessor.LastName;
+            _userProfessor.Email = userProfessor.Email;
+            _userProfessor.Password = userProfessor.Password;
+            _userProfessor.EmployeeNumber = userProfessor.EmployeeNumber;
+            _userProfessor.BranchId = userProfessor.Branch.Id;
+
+            return _userProfessor;
+        }
+        
+
+
+        
+        public static UserProfessor RegisterProfessor(Models.UserProfessor userProfessor)
+        {
+            UserProfessor _userProfessor = new UserProfessor();
+
+            _userProfessor.FirstName = userProfessor.FirstName;
+            _userProfessor.LastName = userProfessor.LastName;
+            _userProfessor.Email = userProfessor.Email;
+            //_userProfessor.Password = userProfessor.Password;
+            _userProfessor.EmployeeNumber = userProfessor.EmployeeNumber;
+            _userProfessor.Branch.Id = userProfessor.BranchId;
+            _userProfessor.Branch.BranchName = userProfessor.Branch.BranchName;
+
+            return _userProfessor;
         }
 
     }

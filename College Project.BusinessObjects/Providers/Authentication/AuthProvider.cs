@@ -54,7 +54,7 @@ namespace College_Project.BusinessObjects.Providers.Authentication
                 else
                 {
                     clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
-                    clientResponse.Message = "User already exists...Please try with different email";
+                    clientResponse.Message = $"User already exists with email {userStudent.Email} Please try with different email";
                 }
                 
 
@@ -90,7 +90,7 @@ namespace College_Project.BusinessObjects.Providers.Authentication
             else
             {
                 clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
-                clientResponse.Message = "Student Details not found for given roll number";
+                clientResponse.Message = $"Student Details not found for {rollNumber} roll number";
             }
             return clientResponse;
 
@@ -134,7 +134,7 @@ namespace College_Project.BusinessObjects.Providers.Authentication
             AuthRepository authRepository = new AuthRepository();
 
             var inUserModel = authRepository.GetStudentDetails(rollNumber,password);
-            if(inUserModel != null)
+            if (inUserModel != null)
             {
                 inUserModel.IsActive = false;
                 var outUserModel = authRepository.DeleteStudent(inUserModel);
@@ -156,12 +156,84 @@ namespace College_Project.BusinessObjects.Providers.Authentication
                 clientResponse.Result = true;
                 clientResponse.Message = "Student not found...!";
             }
-           
-            
             return clientResponse;
 
 
         }
+        public ClientResponse<UserProfessor> RegisterProfessor(UserProfessor userProfessor)
+        {
+            var clientResponse = new ClientResponse<UserProfessor>();
+            AuthRepository authRepository = new AuthRepository();
+            try
+            {
+                var searchUser = authRepository.SearchProfessor(userProfessor.Email);
+                if(searchUser == null)
+                {
+                    var inUserModel = AuthMapper.RegisterProfessorModel(userProfessor);
+                    var outUserModel = authRepository.RegisterProfessor(inUserModel);
+                    if (outUserModel != null)
+                    {
+                        clientResponse.Result = AuthMapper.RegisterProfessor(outUserModel);
+
+                    }
+                    else
+                    {
+                        clientResponse.Message = "Registering failed...try again";
+                    }
+                    if (clientResponse.Result != null)
+                    {
+                        clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                    }
+                    else
+                    {
+                        clientResponse.Message = "Registering failed...try again";
+                    }
+                }
+                else
+                {
+                    clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                    clientResponse.Message = $"User already exist with {userProfessor.Email} please try with different email";
+                }
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return clientResponse;
+            
+            
+
+        }
+        public ClientResponse<UserProfessor> GetProfessorDetails(string email)
+        {
+            var clientResponse = new ClientResponse<UserProfessor>();
+            AuthRepository authRepository = new AuthRepository();
+            var inUserModel = authRepository.SearchProfessor(email);
+            if(inUserModel != null)
+            {
+                clientResponse.Result = AuthMapper.RegisterProfessor(inUserModel);
+                if (clientResponse.Result != null)
+                {
+                    clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                }
+                else
+                {
+                    //clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                    clientResponse.Message = "Fetching failed try again";
+                }
+            }
+            else
+            {
+                clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                clientResponse.Message = $"User doesn't exist with {email} email";
+            }
+            
+            return clientResponse;
+            
+        }
+
     
     }
 }

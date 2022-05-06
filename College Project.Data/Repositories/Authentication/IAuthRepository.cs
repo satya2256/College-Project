@@ -12,7 +12,9 @@ namespace College_Project.Data.Repositories.Authentication
         UserStudent SearchStudent(string email);
         UserStudent GetStudentDetails(string rollNumber);
         UserStudent GetStudentDetails(string rollNumber, string password);
-        public UserStudent GetDeletedStudentDetails(string rollNumber, string password);
+        UserStudent GetDeletedStudentDetails(string rollNumber, string password);
+        UserProfessor RegisterProfessor(UserProfessor userProfessor);
+        UserProfessor SearchProfessor(string email);
 
     }
 }
