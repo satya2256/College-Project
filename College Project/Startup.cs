@@ -1,3 +1,5 @@
+using College_Project.BusinessObjects.Providers.Authentication;
+using College_Project.Data.Repositories.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +35,11 @@ namespace College_Project
                 }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
+            services.AddTransient<IAuthRepository, AuthRepository>();
+            services.AddTransient<IAuthprovider, AuthProvider>();
         }
+        //repositories
+        //services.AddTransient<IAuthRepository, AuthRepository>();
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

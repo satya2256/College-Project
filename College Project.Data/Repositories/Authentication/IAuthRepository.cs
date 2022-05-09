@@ -12,6 +12,11 @@ namespace College_Project.Data.Repositories.Authentication
         UserStudent SearchStudent(string email);
         UserStudent GetStudentDetails(string rollNumber);
         UserStudent GetStudentDetails(string rollNumber, string password);
+        UserStudent GetDeletedStudentDetails(string rollNumber, string password);
+        List<UserStudent> GetStudentsDetailsByBranchName(string branchName);
+        UserProfessor RegisterProfessor(UserProfessor userProfessor);
+        UserProfessor SearchProfessor(string email);
+        public UserStudent UpdateStudent(UserStudent userStudent);
 
     }
 }

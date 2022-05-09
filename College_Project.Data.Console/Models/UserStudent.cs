@@ -5,25 +5,23 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace College_Project.Data.Models
+namespace College_Project.Data.Console.Models
 {
-    public partial class Branch
+    public partial class UserStudent
     {
-        public Branch()
-        {
-            UserProfessor = new HashSet<UserProfessor>();
-            UserStudent = new HashSet<UserStudent>();
-        }
-
         public int Id { get; set; }
-        public string BranchName { get; set; }
+        public string RollNumber { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public int BranchId { get; set; }
         public int? CreatedById { get; set; }
         public int? ModifiedById { get; set; }
         public DateTime? CreatedDt { get; set; }
         public DateTime? ModifiedDt { get; set; }
         public bool? IsActive { get; set; }
 
-        public virtual ICollection<UserProfessor> UserProfessor { get; set; }
-        public virtual ICollection<UserStudent> UserStudent { get; set; }
+        public virtual Branch Branch { get; set; }
     }
 }

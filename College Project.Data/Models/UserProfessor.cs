@@ -7,23 +7,21 @@ using System.Collections.Generic;
 
 namespace College_Project.Data.Models
 {
-    public partial class Branch
+    public partial class UserProfessor
     {
-        public Branch()
-        {
-            UserProfessor = new HashSet<UserProfessor>();
-            UserStudent = new HashSet<UserStudent>();
-        }
-
         public int Id { get; set; }
-        public string BranchName { get; set; }
+        public string EmployeeNumber { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public int BranchId { get; set; }
         public int? CreatedById { get; set; }
         public int? ModifiedById { get; set; }
         public DateTime? CreatedDt { get; set; }
         public DateTime? ModifiedDt { get; set; }
         public bool? IsActive { get; set; }
 
-        public virtual ICollection<UserProfessor> UserProfessor { get; set; }
-        public virtual ICollection<UserStudent> UserStudent { get; set; }
+        public virtual Branch Branch { get; set; }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using College_Project.Data.Models;
+using College_Project.Data.Console.Models;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace College_Project.Data.Context
+namespace College_Project.Data.Console.Context
 {
     public partial class CollegeContext : DbContext
     {
@@ -63,11 +63,6 @@ namespace College_Project.Data.Context
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EmployeeNumber)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(50)
@@ -85,6 +80,11 @@ namespace College_Project.Data.Context
                 entity.Property(e => e.ModifiedDt).HasColumnType("datetime");
 
                 entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RollNumber)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
