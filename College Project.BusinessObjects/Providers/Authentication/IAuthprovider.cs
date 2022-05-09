@@ -12,8 +12,10 @@ namespace College_Project.BusinessObjects.Providers.Authentication
         ClientResponse<UserStudent> RegisterStudent(UserStudent userStudent);
         ClientResponse<UserStudent> GetStudentDetails(string rollNumber);
         ClientResponse<UserStudent> GetStudentDetails(string rollNumber, string password);
+        ClientResponse<List<UserStudent>> GetStudentsDetailsByBranchName(string branchName);
         ClientResponse<bool> DeleteStudent(string rollNumber, string password);
         ClientResponse<UserProfessor> RegisterProfessor(UserProfessor userProfessor);
         ClientResponse<UserProfessor> GetProfessorDetails(string email);
+        ClientResponse<UserStudent> UpdateStudent(UserStudent userStudent);
     }
 }

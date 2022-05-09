@@ -22,54 +22,61 @@ namespace College_Project.Controllers
         [HttpPost("RegisterStudent")]
         public ClientResponse<UserStudent> RegisterStudent([FromBody] UserStudent userStudent)
         {
-            //AuthProvider authProvider = new AuthProvider();
+            AuthProvider authProvider = new AuthProvider();
             Serilog.Log.Information("Get '" + this.GetType() + "' Input Params -> Event:{Event}, EventStatus:{EventStatus}", "RegisterStudent", "ControllerStarted");
-            var reg = _authProvider.RegisterStudent(userStudent);
+            var reg = authProvider.RegisterStudent(userStudent);
             return reg;
 
         }
         [HttpGet("GetStudentDetails")]
         public ClientResponse<UserStudent> GetStudentDetails(string rollNumber)
         {
-            //AuthProvider authProvider = new AuthProvider();
-            var student = _authProvider.GetStudentDetails(rollNumber);
+            AuthProvider authProvider = new AuthProvider();
+            var student = authProvider.GetStudentDetails(rollNumber);
             return student;
 
+        }
+        [HttpGet("GetStudentsDetailsByBranchName")]
+        public ClientResponse<List<UserStudent>> GetStudentsDetailsByBranchName(string branchName)
+        {
+            //AuthProvider authProvider = new AuthProvider();
+            return _authProvider.GetStudentsDetailsByBranchName(branchName);
         }
         [HttpGet("StudentLogin")]
         public ClientResponse<UserStudent> StudentLogin(string rollNumber, string password)
         {
-           // AuthProvider authProvider = new AuthProvider();
-            var loggedinStudent = _authProvider.GetStudentDetails(rollNumber,password);
+           AuthProvider authProvider = new AuthProvider();
+            var loggedinStudent = authProvider.GetStudentDetails(rollNumber,password);
             return loggedinStudent;
 
         }
         [HttpPost("UpdateStudent")]
         public ClientResponse<UserStudent> UpdateStudent([FromBody]UserStudent userStudent )
         {
-            return null;
+            AuthProvider authProvider = new AuthProvider();
+            return authProvider.UpdateStudent(userStudent);
         }
         
         [HttpDelete("DeleteStudent")]
         public ClientResponse<bool> DeleteStudent(string rollNumber,string password)
         {
-            //AuthProvider authProvider = new AuthProvider();
-            var deletedStudent = _authProvider.DeleteStudent(rollNumber, password);
+            AuthProvider authProvider = new AuthProvider();
+            var deletedStudent = authProvider.DeleteStudent(rollNumber, password);
             return deletedStudent;
 
         }
         [HttpPost("RegisterProfessor")]
         public ClientResponse<UserProfessor> RegisterProfessor([FromBody]UserProfessor userProfessor)
         {
-            //AuthProvider authProvider = new AuthProvider();
-            var register = _authProvider.RegisterProfessor(userProfessor);
+            AuthProvider authProvider = new AuthProvider();
+            var register = authProvider.RegisterProfessor(userProfessor);
             return register;
         }
         [HttpGet("GetProfessorDetails")]
         public ClientResponse<UserProfessor> GetProfessorDetails(string email)
         {
-            //AuthProvider authProvider = new AuthProvider();
-            var professorDetails = _authProvider.GetProfessorDetails(email);
+            AuthProvider authProvider = new AuthProvider();
+            var professorDetails = authProvider.GetProfessorDetails(email);
             return professorDetails;
         }
     }

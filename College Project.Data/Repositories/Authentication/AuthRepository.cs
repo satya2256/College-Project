@@ -34,6 +34,27 @@ namespace College_Project.Data.Repositories.Authentication
 
 
         }
+        public UserStudent UpdateStudent(UserStudent userStudent)
+        {
+            try
+            {
+                var register = collegeContext.Update(userStudent);
+                int count = collegeContext.SaveChanges();
+                if (count > 0)
+                {
+                    return SearchStudent(userStudent.Email);
+                }
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+        }
         public UserStudent SearchStudent(string email)
         {
             try
@@ -98,6 +119,21 @@ namespace College_Project.Data.Repositories.Authentication
             }
 
         }
+        public List<UserStudent> GetStudentsDetailsByBranchName(string branchName)
+        {
+            try
+            {
+                CollegeContext collegeContext = new CollegeContext();
+                var search = collegeContext.UserStudent.Where(x => x.Branch.BranchName.ToLower() == branchName.ToLower())
+                    .Include(br => br.Branch).ToList();
+                return search;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public UserStudent DeleteStudent(UserStudent userStudent)
         {
             try
@@ -110,10 +146,8 @@ namespace College_Project.Data.Repositories.Authentication
                     return GetDeletedStudentDetails(userStudent.RollNumber, userStudent.Password);
 
                 }
-
-
-
             }
+
             catch (Exception ex)
             {
 

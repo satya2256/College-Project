@@ -32,8 +32,8 @@ namespace College_Project.BusinessObjects.Mappers
             if(userStudent !=null)
             {
                 UserStudent _userStudent = new UserStudent();
-                
 
+                _userStudent.Id = Convert.ToInt32(userStudent?.Id);
                 _userStudent.FirstName = userStudent?.FirstName;
                 _userStudent.LastName = userStudent?.LastName;
                 _userStudent.RollNumber = userStudent?.RollNumber;
@@ -46,6 +46,16 @@ namespace College_Project.BusinessObjects.Mappers
 
             }
             return null;
+        }
+        public static List<UserStudent> GetStudentsDetailsByBranchName(List<Models.UserStudent> userStudents)
+        {
+            List<UserStudent> _userStudents = new List<UserStudent>();
+            foreach (var userStudent in userStudents)
+            {
+                _userStudents.Add(RegisterStudent(userStudent));
+            }
+            return _userStudents;
+
         }
         public static Models.UserProfessor RegisterProfessorModel(UserProfessor userProfessor)
         {

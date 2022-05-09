@@ -5,6 +5,7 @@ using College_Project.Infra.Base;
 using College_Project.Infra.Enums;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,6 +67,45 @@ namespace College_Project.BusinessObjects.Providers.Authentication
             }
             return clientResponse;
         }
+        public ClientResponse<UserStudent> UpdateStudent(UserStudent userStudent)
+        {
+            var clientResponse = new ClientResponse<UserStudent>();
+            AuthRepository authRepository = new AuthRepository();
+
+            var search = authRepository.SearchStudent(userStudent.Email);
+            if (search != null)
+            {
+                if (!userStudent.Equals(search))
+                {
+                    if (userStudent.FirstName == null)
+                    {
+                        search.FirstName = search.FirstName;
+                    }
+                    else
+                    {
+                        search.FirstName = userStudent.FirstName;
+                    }
+                    if (userStudent.LastName == null)
+                    {
+                        search.LastName = search.LastName;
+                    }
+                    else
+                    {
+                        search.LastName = userStudent.LastName;
+                    }
+                    search.Password = search.Password;
+                    search.RollNumber = search.RollNumber;
+                    search.Branch.Id = search.Branch.Id;
+                }
+                var outUserModel = authRepository.UpdateStudent(search);
+                clientResponse.Result = AuthMapper.RegisterStudent(outUserModel);
+                if (clientResponse.Result != null)
+                {
+                    clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                }
+            }
+            return clientResponse;
+        }
         public ClientResponse<UserStudent> GetStudentDetails(string rollNumber)
         {
             var clientResponse = new ClientResponse<UserStudent>();
@@ -84,6 +124,7 @@ namespace College_Project.BusinessObjects.Providers.Authentication
                 {
                     //Success 
                     clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                    clientResponse.Message = "Details fetched succesfully";
                 }
 
             }
@@ -127,6 +168,28 @@ namespace College_Project.BusinessObjects.Providers.Authentication
 
 
 
+        }
+        public ClientResponse<List<UserStudent>> GetStudentsDetailsByBranchName(string branchName)
+        {
+            AuthRepository authRepository = new AuthRepository();
+            var clientResponse = new ClientResponse<List<UserStudent>>();
+            var inUserModel = authRepository.GetStudentsDetailsByBranchName(branchName);
+            if(inUserModel.Count != 0)
+            {
+                var outUserModel = AuthMapper.GetStudentsDetailsByBranchName(inUserModel);
+                clientResponse.Result = outUserModel;
+                if (clientResponse.Result != null)
+                {
+                    clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                }
+            }
+            else
+            {
+                clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
+                clientResponse.Message = $"No students were found in {branchName} branch";
+            }
+            
+            return clientResponse;
         }
         public ClientResponse<bool> DeleteStudent(string rollNumber, string password)
         {
@@ -233,7 +296,8 @@ namespace College_Project.BusinessObjects.Providers.Authentication
             return clientResponse;
             
         }
+        
 
-    
+
     }
 }
