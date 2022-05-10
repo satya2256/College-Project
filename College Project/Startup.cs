@@ -1,9 +1,11 @@
 using College_Project.BusinessObjects.Providers.Authentication;
+using College_Project.Data.Context;
 using College_Project.Data.Repositories.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +29,8 @@ namespace College_Project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<CollegeContext>(options => options.UseSqlServer(connectionString));
             services.AddRazorPages();
             services.AddControllers()
                 .AddNewtonsoftJson(options =>

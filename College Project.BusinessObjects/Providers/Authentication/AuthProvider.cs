@@ -13,14 +13,19 @@ namespace College_Project.BusinessObjects.Providers.Authentication
 {
     public class AuthProvider : ProviderBase, IAuthprovider
     {
+        readonly IAuthRepository _authRepository;
+        public AuthProvider(IAuthRepository authRepository)
+        {
+            _authRepository = authRepository;
+        }
         public ClientResponse<UserStudent> RegisterStudent(UserStudent userStudent)
         {
             var clientResponse = new ClientResponse<UserStudent>();
-            AuthRepository authRepository = new AuthRepository();
+           // AuthRepository authRepository = new AuthRepository();
             try
             {
                 //Register Student
-                var searchUser = authRepository.SearchStudent(userStudent.Email);
+                var searchUser = _authRepository.SearchStudent(userStudent.Email);
                 if(searchUser == null)
                 {
                     if (userStudent.Id == 0 && (userStudent.Password == userStudent.ConfirmPassword))
@@ -28,7 +33,7 @@ namespace College_Project.BusinessObjects.Providers.Authentication
                         var inUserModel = AuthMapper.RegisterStudentModel(userStudent);
                         if (inUserModel != null)
                         {
-                            var outUserModel = authRepository.RegisterStudent(inUserModel);
+                            var outUserModel = _authRepository.RegisterStudent(inUserModel);
                             if (outUserModel != null)
                             {
                                 clientResponse.Result = AuthMapper.RegisterStudent(outUserModel);
@@ -70,9 +75,9 @@ namespace College_Project.BusinessObjects.Providers.Authentication
         public ClientResponse<UserStudent> UpdateStudent(UserStudent userStudent)
         {
             var clientResponse = new ClientResponse<UserStudent>();
-            AuthRepository authRepository = new AuthRepository();
+            //AuthRepository authRepository = new AuthRepository();
 
-            var search = authRepository.SearchStudent(userStudent.Email);
+            var search = _authRepository.SearchStudent(userStudent.Email);
             if (search != null)
             {
                 if (!userStudent.Equals(search))
@@ -97,7 +102,7 @@ namespace College_Project.BusinessObjects.Providers.Authentication
                     search.RollNumber = search.RollNumber;
                     search.Branch.Id = search.Branch.Id;
                 }
-                var outUserModel = authRepository.UpdateStudent(search);
+                var outUserModel = _authRepository.UpdateStudent(search);
                 clientResponse.Result = AuthMapper.RegisterStudent(outUserModel);
                 if (clientResponse.Result != null)
                 {
@@ -109,9 +114,9 @@ namespace College_Project.BusinessObjects.Providers.Authentication
         public ClientResponse<UserStudent> GetStudentDetails(string rollNumber)
         {
             var clientResponse = new ClientResponse<UserStudent>();
-            AuthRepository authRepository = new AuthRepository();
+           // AuthRepository authRepository = new AuthRepository();
 
-            var inUserModel = authRepository.GetStudentDetails(rollNumber);
+            var inUserModel = _authRepository.GetStudentDetails(rollNumber);
             if (inUserModel != null)
             {
                 var outUserModel = AuthMapper.RegisterStudent(inUserModel);
@@ -141,9 +146,9 @@ namespace College_Project.BusinessObjects.Providers.Authentication
         public ClientResponse<UserStudent> GetStudentDetails(string rollNumber, string password)
         {
             var clientResponse = new ClientResponse<UserStudent>();
-            AuthRepository authRepository = new AuthRepository();
+           // AuthRepository authRepository = new AuthRepository();
 
-            var inUserModel = authRepository.GetStudentDetails(rollNumber, password);
+            var inUserModel = _authRepository.GetStudentDetails(rollNumber, password);
             if (inUserModel != null)
             {
                 var outUserModel = AuthMapper.RegisterStudent(inUserModel);
@@ -171,9 +176,9 @@ namespace College_Project.BusinessObjects.Providers.Authentication
         }
         public ClientResponse<List<UserStudent>> GetStudentsDetailsByBranchName(string branchName)
         {
-            AuthRepository authRepository = new AuthRepository();
+            //AuthRepository authRepository = new AuthRepository();
             var clientResponse = new ClientResponse<List<UserStudent>>();
-            var inUserModel = authRepository.GetStudentsDetailsByBranchName(branchName);
+            var inUserModel = _authRepository.GetStudentsDetailsByBranchName(branchName);
             if(inUserModel.Count != 0)
             {
                 var outUserModel = AuthMapper.GetStudentsDetailsByBranchName(inUserModel);
@@ -194,13 +199,13 @@ namespace College_Project.BusinessObjects.Providers.Authentication
         public ClientResponse<bool> DeleteStudent(string rollNumber, string password)
         {
             var clientResponse = new ClientResponse<bool>();
-            AuthRepository authRepository = new AuthRepository();
+            //AuthRepository authRepository = new AuthRepository();
 
-            var inUserModel = authRepository.GetStudentDetails(rollNumber,password);
+            var inUserModel = _authRepository.GetStudentDetails(rollNumber,password);
             if (inUserModel != null)
             {
                 inUserModel.IsActive = false;
-                var outUserModel = authRepository.DeleteStudent(inUserModel);
+                var outUserModel = _authRepository.DeleteStudent(inUserModel);
                 if (outUserModel != null && outUserModel.IsActive == false)
                 {
                     clientResponse = UpdateClientResponse(clientResponse, EResponseStatus.Success);
@@ -226,14 +231,14 @@ namespace College_Project.BusinessObjects.Providers.Authentication
         public ClientResponse<UserProfessor> RegisterProfessor(UserProfessor userProfessor)
         {
             var clientResponse = new ClientResponse<UserProfessor>();
-            AuthRepository authRepository = new AuthRepository();
+            //AuthRepository authRepository = new AuthRepository();
             try
             {
-                var searchUser = authRepository.SearchProfessor(userProfessor.Email);
+                var searchUser = _authRepository.SearchProfessor(userProfessor.Email);
                 if(searchUser == null)
                 {
                     var inUserModel = AuthMapper.RegisterProfessorModel(userProfessor);
-                    var outUserModel = authRepository.RegisterProfessor(inUserModel);
+                    var outUserModel = _authRepository.RegisterProfessor(inUserModel);
                     if (outUserModel != null)
                     {
                         clientResponse.Result = AuthMapper.RegisterProfessor(outUserModel);
@@ -272,8 +277,8 @@ namespace College_Project.BusinessObjects.Providers.Authentication
         public ClientResponse<UserProfessor> GetProfessorDetails(string email)
         {
             var clientResponse = new ClientResponse<UserProfessor>();
-            AuthRepository authRepository = new AuthRepository();
-            var inUserModel = authRepository.SearchProfessor(email);
+            //AuthRepository authRepository = new AuthRepository();
+            var inUserModel = _authRepository.SearchProfessor(email);
             if(inUserModel != null)
             {
                 clientResponse.Result = AuthMapper.RegisterProfessor(inUserModel);
