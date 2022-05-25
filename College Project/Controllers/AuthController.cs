@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -78,6 +79,12 @@ namespace College_Project.Controllers
            // AuthProvider authProvider = new AuthProvider();
             var professorDetails = _authProvider.GetProfessorDetails(email);
             return professorDetails;
+        }
+        [HttpPost("ConvertCSVtoDataTable")]
+        public DataTable ConvertCSVtoDataTable(string strFilePath)
+        {
+            var data = _authProvider.ConvertCSVtoDataTable(strFilePath);
+            return data;
         }
     }
 
