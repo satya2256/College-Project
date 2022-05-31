@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace College_Project.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        IAuthprovider _authProvider;
+        readonly IAuthprovider _authProvider;
         public AuthController(IAuthprovider authprovider)
         {
             _authProvider = authprovider;
@@ -22,17 +23,17 @@ namespace College_Project.Controllers
         [HttpPost("RegisterStudent")]
         public ClientResponse<UserStudent> RegisterStudent([FromBody] UserStudent userStudent)
         {
-            AuthProvider authProvider = new AuthProvider();
+            //AuthProvider authProvider = new AuthProvider();
             Serilog.Log.Information("Get '" + this.GetType() + "' Input Params -> Event:{Event}, EventStatus:{EventStatus}", "RegisterStudent", "ControllerStarted");
-            var reg = authProvider.RegisterStudent(userStudent);
+            var reg = _authProvider.RegisterStudent(userStudent);
             return reg;
 
         }
         [HttpGet("GetStudentDetails")]
         public ClientResponse<UserStudent> GetStudentDetails(string rollNumber)
         {
-            AuthProvider authProvider = new AuthProvider();
-            var student = authProvider.GetStudentDetails(rollNumber);
+            //AuthProvider authProvider = new AuthProvider();
+            var student = _authProvider.GetStudentDetails(rollNumber);
             return student;
 
         }
@@ -45,39 +46,45 @@ namespace College_Project.Controllers
         [HttpGet("StudentLogin")]
         public ClientResponse<UserStudent> StudentLogin(string rollNumber, string password)
         {
-           AuthProvider authProvider = new AuthProvider();
-            var loggedinStudent = authProvider.GetStudentDetails(rollNumber,password);
+           //AuthProvider authProvider = new AuthProvider();
+            var loggedinStudent = _authProvider.GetStudentDetails(rollNumber,password);
             return loggedinStudent;
 
         }
         [HttpPost("UpdateStudent")]
         public ClientResponse<UserStudent> UpdateStudent([FromBody]UserStudent userStudent )
         {
-            AuthProvider authProvider = new AuthProvider();
-            return authProvider.UpdateStudent(userStudent);
+           // AuthProvider authProvider = new AuthProvider();
+            return _authProvider.UpdateStudent(userStudent);
         }
         
         [HttpDelete("DeleteStudent")]
         public ClientResponse<bool> DeleteStudent(string rollNumber,string password)
         {
-            AuthProvider authProvider = new AuthProvider();
-            var deletedStudent = authProvider.DeleteStudent(rollNumber, password);
+           // AuthProvider authProvider = new AuthProvider();
+            var deletedStudent = _authProvider.DeleteStudent(rollNumber, password);
             return deletedStudent;
 
         }
         [HttpPost("RegisterProfessor")]
         public ClientResponse<UserProfessor> RegisterProfessor([FromBody]UserProfessor userProfessor)
         {
-            AuthProvider authProvider = new AuthProvider();
-            var register = authProvider.RegisterProfessor(userProfessor);
+          //  AuthProvider authProvider = new AuthProvider();
+            var register = _authProvider.RegisterProfessor(userProfessor);
             return register;
         }
         [HttpGet("GetProfessorDetails")]
         public ClientResponse<UserProfessor> GetProfessorDetails(string email)
         {
-            AuthProvider authProvider = new AuthProvider();
-            var professorDetails = authProvider.GetProfessorDetails(email);
+           // AuthProvider authProvider = new AuthProvider();
+            var professorDetails = _authProvider.GetProfessorDetails(email);
             return professorDetails;
+        }
+        [HttpPost("ConvertCSVtoDataTable")]
+        public DataTable ConvertCSVtoDataTable(string strFilePath)
+        {
+            var data = _authProvider.ConvertCSVtoDataTable(strFilePath);
+            return data;
         }
     }
 
