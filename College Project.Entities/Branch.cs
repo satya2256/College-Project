@@ -7,6 +7,7 @@ namespace College_Project.Entities
 {
     public class Branch:EntityBase
     {
+        //comment for GIT Test
         public string BranchName { get; set; }
     }
 }
