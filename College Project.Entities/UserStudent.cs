@@ -9,8 +9,6 @@ namespace College_Project.Entities
     {
     
         public string RollNumber { get; set; }
-        public string RollNumber1 { get; set; }
-        public string RollNumber2 { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
