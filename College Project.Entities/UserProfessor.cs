@@ -7,7 +7,7 @@ namespace College_Project.Entities
 {
     public class UserProfessor:EntityBase
     {
-    //test comment
+    
         public string EmployeeNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
