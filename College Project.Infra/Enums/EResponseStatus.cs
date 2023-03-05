@@ -9,6 +9,7 @@ namespace College_Project.Infra.Enums
         Success=1,
         Failed,
         Partial
+        //another one to be added
         
     }
 }
