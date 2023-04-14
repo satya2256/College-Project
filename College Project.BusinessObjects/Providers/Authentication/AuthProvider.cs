@@ -67,7 +67,7 @@ namespace College_Project.BusinessObjects.Providers.Authentication
                 
 
             }
-            catch  xception ex)
+            catch  (Exception ex)
             {
 
                 throw ex;

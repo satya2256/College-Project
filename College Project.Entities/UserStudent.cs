@@ -8,7 +8,7 @@ namespace College_Project.Entities
     public class UserStudent:EntityBase
     {
     
-        public string RollNumbr { get; set; }
+        public string RollNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
@@ -16,5 +16,6 @@ namespace College_Project.Entities
         public string Email { get; set; }
         public Branch Branch { get; set; } = new Branch();
         //comment for testing
+        //comment for devops
     }
 }
