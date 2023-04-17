@@ -9,14 +9,14 @@ namespace College_Project.Entities
     {
     
         public string RollNumber { get; set; }
+        public string HallTicketId {get; set;}
         public string HallTicketNumber {get; set;}
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public string Email { get; set; }
-        public Branch Branch { get; set; } = new Branch();
-        //comment for testing
+        public Branch Branch { get; set; } = new Branch()
         //comment for devops
     }
 }
