@@ -8,7 +8,9 @@ namespace College_Project.Infra.Enums
     {
         Success=1,
         Failed,
-        Partial
+        Partial,
+        Fatal,
+        Error
         //another one to be added
         
     }
