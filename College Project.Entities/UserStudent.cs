@@ -17,6 +17,7 @@ namespace College_Project.Entities
         public string ConfirmPassword { get; set; }
         public string Email { get; set; }
         public Branch Branch { get; set; } = new Branch();
-        //comment for devops
+
+        //This is test for Jira3
     }
 }

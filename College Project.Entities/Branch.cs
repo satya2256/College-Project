@@ -8,5 +8,6 @@ namespace College_Project.Entities
     public class Branch:EntityBase
     {
         public string BranchName { get; set; }
+         //This is test for Jira1
     }
 }

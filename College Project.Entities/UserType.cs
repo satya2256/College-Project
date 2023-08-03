@@ -8,5 +8,7 @@ namespace College_Project.Entities
     public class UserType:EntityBase
     {
         public string UserTypeName { get; set; }
+
+        //This is test for Jira4
     }
 }

@@ -14,21 +14,23 @@ namespace College_Project.Entities
         public string Password { get; set; }
         public string Email { get; set; }
         public Branch Branch { get; set; } = new Branch();
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        //This is test for Jira2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
