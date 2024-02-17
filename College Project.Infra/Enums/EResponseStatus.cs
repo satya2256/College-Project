@@ -12,6 +12,7 @@ namespace College_Project.Infra.Enums
         Fatal,
         Error
         //another one to be added
+        //test for jira
         
     }
 }
