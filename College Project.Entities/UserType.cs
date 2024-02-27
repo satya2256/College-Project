@@ -8,6 +8,6 @@ namespace College_Project.Entities
     public class UserType:EntityBase
     {
         public string UserTypeName { get; set; }
-        //this is test for jenkins build
+        this is test for jenkins build
     }
 }
